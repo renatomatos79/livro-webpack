@@ -1,0 +1,14 @@
+{
+  "name": "08-import",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "dependencies": {
+    "@renato-matos/validation-libs": "^1.0.2"
+  }
+}

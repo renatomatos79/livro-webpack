@@ -1,0 +1,37 @@
+{
+  "name": "@renato-matos/validation-libs",
+  "version": "1.0.2",
+  "description": "Udemy treinamento! Biblioteca para validar CPF e CNPJ",
+  "main": "dist/index.bundle.js",
+  "type": "module",
+  "license": "ISC",
+  "keywords": [
+    "CPF",
+    "CNPJ",
+    "Validações",
+    "Renato Matos"
+  ],
+  "author": "Renato Matos",
+  "scripts": {
+    "build-dev": "webpack --config configs/webpack.dev.config.js",
+    "build-prod": "webpack --config configs/webpack.prod.config.js",
+    "test": "vitest --run",
+    "test:coverage": "vitest run --coverage",
+    "v:patch": "npm version patch",
+    "v:minor": "npm version minor",
+    "v:major": "npm version major",
+    "v:dep": "npm publish --access public",
+    "v:patch:full": "npm run test && npm run build-prod && npm run v:patch && npm run v:dep",
+    "v:minor:full": "npm run test && npm run build-prod && npm run v:minor && npm run v:dep",
+    "v:major:full": "npm run test && npm run build-prod && npm run v:major && npm run v:dep"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.8",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-merge": "^6.0.1"
+  }
+}

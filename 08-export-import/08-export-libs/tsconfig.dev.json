@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.common.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "module": "ES2020",
+    "target": "ES2020"
+  }
+}

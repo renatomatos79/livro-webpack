@@ -1,0 +1,12 @@
+{
+  "include":  ["src/**/*.ts"],
+  "exclude": ["node_modules", "src/validacao"],
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "allowJs": true,
+    "explainFiles": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "declaration": true
+  }
+}

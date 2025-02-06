@@ -1,0 +1,19 @@
+{
+  "name": "02-config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-dev": "webpack --config configs/webpack.dev.config.js",
+    "build-prod": "webpack --config configs/webpack.prod.config.js"
+  },
+  "private": true,
+  "devDependencies": {
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "mathjs": "^14.0.1"
+  }
+}

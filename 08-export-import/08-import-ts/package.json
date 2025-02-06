@@ -1,0 +1,17 @@
+{
+  "name": "08-import-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@renato-matos/validation-libs": "^1.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "private": true,
+  "type": "module"
+}

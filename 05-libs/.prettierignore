@@ -1,0 +1,7 @@
+node_modules
+coverage
+dist
+prettier.config.js
+package.json
+package-lock.json
+vite.config.js

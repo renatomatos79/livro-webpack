@@ -1,0 +1,18 @@
+{
+  "name": "01-blank-project",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build-dev": "webpack --mode development",
+    "build-prod": "webpack --mode production"
+  },
+  "keywords": ["webpack", "livro"],
+  "author": "Renato Matos",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "Capítulo 01 do livro",
+  "devDependencies": {
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  }
+}

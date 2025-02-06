@@ -1,0 +1,43 @@
+{
+  "name": "@renato-matos/input-cpf",
+  "version": "1.0.1",
+  "description": "Udemy treinamento! CPF input",
+  "main": "dist/index.bundle.js",
+  "type": "module",
+  "license": "ISC",
+  "keywords": [
+    "CPF",
+    "Input",
+    "Renato Matos"
+  ],
+  "author": "Renato Matos",
+  "scripts": {
+    "dev": "webpack serve --config ./webpack.config.dev.js",
+    "validate": "webpack serve --config ./webpack.config.val.js",
+    "build": "webpack --config ./webpack.config.prod.js",
+    "v:patch": "npm version patch",
+    "v:minor": "npm version minor",
+    "v:major": "npm version major",
+    "v:dep": "npm publish --access public",
+    "v:patch:full": "npm run build && npm run v:patch && npm run v:dep",
+    "v:minor:full": "npm run build && npm run v:minor && npm run v:dep",
+    "v:major:full": "npm run build && npm run v:major && npm run v:dep"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@renato-matos/validation-libs": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^9.2.1",
+    "html-webpack-plugin": "^5.6.3",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0",
+    "webpack-merge": "^6.0.1"
+  }
+}
