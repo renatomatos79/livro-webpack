@@ -16,39 +16,47 @@ import {addDistance} from "../../../libs/util";
 
 // Const
 const googleMapApiKey = AppSettings.GoogleMaps.ApiKey
-const locations = {
-  buildings: MOCK_FILTER_TYPES.filter(f => f.itemType === FILTER_TYPE_BUILDING),
-  cars: MOCK_FILTER_TYPES
-      .filter(f => f.itemType === FILTER_TYPE_CAR)
-      .filter(f => f.status !== 'broken')
-      .map(car => {
-        return addDistance(car, 'Carro')
-      }),
-  bikes: MOCK_FILTER_TYPES
-      .filter(f => f.itemType === FILTER_TYPE_BIKE)
-      .filter(f => f.status !== 'broken')
-      .map(bike => {
-        return addDistance(bike, 'Bike')
-      }),
-  trucks: MOCK_FILTER_TYPES
-      .filter(f => f.itemType === FILTER_TYPE_TRUCK)
-      .filter(f => f.status !== 'broken')
-      .map(truck => {
-        return addDistance(truck, 'Truck')
-      })
-}
 
 // Refs
+const locations = ref({ buildings: [], cars: [], trucks: [], bikes: [] })
 const center = ref({ lat: 0, lng:  0})
 const isFilterVisible = ref(true)
 const handleFilterClick = () => {
   isFilterVisible.value = !isFilterVisible.value
 }
 
+const handleRefreshClick = () => {
+  // data load
+  locations.value = {
+    buildings: MOCK_FILTER_TYPES.filter(f => f.itemType === FILTER_TYPE_BUILDING),
+    cars: MOCK_FILTER_TYPES
+        .filter(f => f.itemType === FILTER_TYPE_CAR)
+        .filter(f => f.status !== 'broken')
+        .map(car => {
+          return addDistance(car, 'Carro')
+        }),
+    bikes: MOCK_FILTER_TYPES
+        .filter(f => f.itemType === FILTER_TYPE_BIKE)
+        .filter(f => f.status !== 'broken')
+        .map(bike => {
+          return addDistance(bike, 'Bike')
+        }),
+    trucks: MOCK_FILTER_TYPES
+        .filter(f => f.itemType === FILTER_TYPE_TRUCK)
+        .filter(f => f.status !== 'broken')
+        .map(truck => {
+          return addDistance(truck, 'Truck')
+        })
+  }
+
+  // centralização do mapa
+  center.value = getCenter(locations.value.buildings)
+}
+
 // Computed
 const mapsColSize = computed(() => isFilterVisible.value ? 'col-9' : 'col-12')
 const polygonArea = computed(() => {
-  const paths = locations
+  const paths = locations.value
       .buildings
       .map((m) => {
         return { lat: m.location.latitude, lng: m.location.longitude }
@@ -65,8 +73,8 @@ const polygonArea = computed(() => {
 })
 
 // Methods
-function getCenter(locations) {
-  const total = locations.reduce(
+function getCenter(buildings) {
+  const total = buildings.reduce(
       (acc, item) => {
         acc.latitude += item.location.latitude;
         acc.longitude += item.location.longitude;
@@ -76,14 +84,14 @@ function getCenter(locations) {
   );
 
   return {
-    lat: total.latitude / locations.length,
-    lng: total.longitude / locations.length,
+    lat: total.latitude / buildings.length,
+    lng: total.longitude / buildings.length,
   }
 }
 
 // Events
 onMounted(() => {
-  center.value = getCenter(locations.buildings)
+  handleRefreshClick()
 })
 </script>
 
@@ -91,7 +99,7 @@ onMounted(() => {
   <div class="dashboard--container">
     <div class="row">
       <div class="col-12">
-        <Header @filter-click="handleFilterClick" />
+        <Header @filter-click="handleFilterClick" @refresh-click="handleRefreshClick" />
       </div>
     </div>
     <div class="row">
