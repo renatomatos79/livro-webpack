@@ -7,7 +7,7 @@ console.log('dist: ', dist)
 module.exports = {
     entry: {
         index: {
-            import: './src/main.js',
+            import: './src/index.js',
             dependOn: 'math'
         },
         math: {
