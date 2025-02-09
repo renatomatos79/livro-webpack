@@ -1,24 +1,15 @@
-import HtmlWebpackPlugin from "html-webpack-plugin"
 import webpack from "webpack";
-import path from "path";
+import * as path from "node:path";
 
 const { ModuleFederationPlugin } = webpack.container
-const googleFirebasePublic = path.resolve('../10D-firebase/public')
-const containerOutputDir = path.resolve(googleFirebasePublic, '.')
-
-console.log('output dir: ', containerOutputDir)
 
 const config = {
     mode: 'production',
     entry: '/src/index.js',
     output: {
-        path: containerOutputDir,
+        path: path.resolve('./dist'),
         filename: '[name].[contenthash].js',
-        publicPath: '/',
-    },
-    devServer: {
-        port: 3002,
-        historyApiFallback: true,
+        publicPath: 'http://localhost:4000/auth/',
     },
     resolve: {
         extensions: ['.js', '.jsx', '.css'],
@@ -45,16 +36,11 @@ const config = {
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "container",
+            name: "auth",
             filename: 'remoteEntry.js',
-            remotes: {
-                auth: 'auth@https://udemy-webpack-mf-c2fa9.web.app/auth/remoteEntry.js',
-                dashboard: 'dashboard@https://udemy-webpack-mf-c2fa9.web.app/dashboard/remoteEntry.js'
-            },
-        }),
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-            scriptLoading: 'module',
+            exposes: {
+                './AuthApp': './src/app.js'
+            }
         })
     ]
 }

@@ -6,7 +6,11 @@
   "author": "Renato Matos",
   "scripts": {
     "dev:auth": "webpack serve --config ./webpack.config.dev.js",
-    "build:firebase": "webpack --config ./webpack.config.firebase.js"
+    "build:firebase": "webpack --config ./webpack.config.firebase.js",
+    "build:docker": "webpack --config ./webpack.config.docker.js",
+    "docker:image:build": "docker build -t webpack-auth:1.0.0 .",
+    "docker:run": "docker run -d --name webpack-auth-app -p 4000:80 webpack-auth:1.0.0",
+    "docker:all": "npm run build:docker && npm run docker:image:build && npm run docker:run"
   },
   "dependencies": {
     "react": "^19.0.0",

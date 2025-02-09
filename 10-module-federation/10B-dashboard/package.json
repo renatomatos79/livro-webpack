@@ -4,7 +4,11 @@
   "description": "",
   "scripts": {
     "dev:dashboard": "webpack serve --config ./webpack.config.dev.js",
-    "build:firebase": "webpack --config ./webpack.config.firebase.js"
+    "build:firebase": "webpack --config ./webpack.config.firebase.js",
+    "build:docker": "webpack --config ./webpack.config.docker.js",
+    "docker:image:build": "docker build -t webpack-dash:1.0.0 .",
+    "docker:run": "docker run -d --name webpack-dash-app -p 4001:80 -e UDEMY_WEBPACK_GOOGLE_API_KEY=$UDEMY_WEBPACK_GOOGLE_API_KEY webpack-dash:1.0.0",
+    "docker:all": "npm run build:docker && npm run docker:image:build && npm run docker:run"
   },
   "dependencies": {
     "vue": "3.2.31",
