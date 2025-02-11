@@ -1,7 +1,9 @@
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import webpack from "webpack";
+import fs from "fs"
 
 const { ModuleFederationPlugin } = webpack.container
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
 
 const config = {
     mode: 'development',
@@ -42,7 +44,8 @@ const config = {
             filename: 'remoteEntry.js',
             exposes: {
                 './AuthApp': './src/app.js'
-            }
+            },
+            shared: packageJson.dependencies,
         }),
         new HtmlWebpackPlugin({
             template: 'index.html',

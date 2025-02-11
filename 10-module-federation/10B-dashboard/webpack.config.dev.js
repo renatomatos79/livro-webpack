@@ -3,8 +3,10 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import DotEnv from 'dotenv-webpack'
 import webpack from "webpack";
 import path from 'path';
+import fs from "fs"
 
 const { ModuleFederationPlugin } = webpack.container
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
 
 const config = {
     mode: 'development',
@@ -54,7 +56,8 @@ const config = {
             filename: 'remoteEntry.js',
             exposes: {
                 './DashboardApp': './src/app.js'
-            }
+            },
+            shared: packageJson.dependencies,
         }),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
