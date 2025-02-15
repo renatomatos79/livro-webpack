@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, {useEffect} from 'react'
+import ReactDOM from 'react-dom/client'
+import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom'
+import './app.css'
+import SignIn from './components/signin/SignIn.js'
+import SignUp from './components/signup/SignUp.js'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+type AuthRedirectProps = {
+    defaultPath?: string
 }
 
-export default App
+const AuthRedirect: React.FC<AuthRedirectProps> = ({ defaultPath }) => {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (defaultPath) navigate(defaultPath, { replace: true })
+    }, [defaultPath])
+    return null
+}
+
+// Função para montagem do componente
+const mount = (
+    element: Element,
+    { defaultPath, email, password, onSignIn } :
+    { defaultPath?: string, email: string, password: string, onSignIn: ({ email, password } : { email: string, password: string }) => void } ) => {
+    const NotFound = () => {
+        return (
+            <div className="container text-center p-3">
+                <p className="h2">404 - Página não encontrada</p>
+            </div>
+        )
+    }
+
+    ReactDOM.createRoot(element).render(
+        <Router future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+        }}>
+            <AuthRedirect defaultPath={defaultPath} />
+            <Routes>
+                <Route path="/auth/signin" element={<SignIn email={email} password={password} onSignIn={onSignIn} />} />
+                <Route path="/auth/signup" element={<SignUp />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Router>
+    )
+}
+
+// so exec. este codigo para o ambiente de desenvolvimento
+if (import.meta.env.MODE === 'development') {
+    const root = document.querySelector('#sandbox-auth-root')
+    console.log('#sandbox-auth-root: ', root)
+    if (root) {
+        mount(root, {
+            email: 'renato.matos79@gmail.com',
+            password: '123456',
+            onSignIn: ({ email, password } : { email: string, password: string }) => {
+                console.log('onSignIn: ', { email, password })
+            }
+        })
+    }
+}
+
+export { mount }
