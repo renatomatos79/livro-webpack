@@ -1,0 +1,24 @@
+{
+  "name": "dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dash:dev": "vite",
+    "dash:build": "vue-tsc -b && vite build",
+    "dash:preview": "npm run dash:build && vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "vue3-google-map": "^0.21.0"
+  },
+  "devDependencies": {
+    "@originjs/vite-plugin-federation": "^1.3.9",
+    "@types/node": "^22.13.4",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0",
+    "vue-tsc": "^2.2.0"
+  }
+}
