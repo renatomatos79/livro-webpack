@@ -10,7 +10,8 @@ export default defineConfig({
         name: 'container',
         filename: 'remoteEntry.js',
         remotes: {
-          auth: 'http://localhost:3000/assets/remoteEntry.js'
+          auth: 'http://localhost:3000/assets/remoteEntry.js',
+          dashboard: 'http://localhost:3001/assets/remoteEntry.js',
         }
       })
   ],

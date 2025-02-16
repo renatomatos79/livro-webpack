@@ -8,3 +8,7 @@ declare module 'auth/AuthApp' {
             onSignIn: ({ email, password } : { email: string, password: string }) => void
         })
 }
+
+declare module 'dashboard/DashboardApp' {
+    function mount(element: Element)
+}
